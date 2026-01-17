@@ -10,176 +10,136 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f0f0f0;
+            background-color: #f7f7f7;
+            color: #212121;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             padding: 20px;
         }
         
         .container {
-            max-width: 800px;
             width: 100%;
-            margin: 20px auto;
-            background-color: rgba(25, 25, 35, 0.9);
+            max-width: 400px;
+            background-color: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
             overflow: hidden;
-            border: 1px solid #3a3a4a;
+            border: 1px solid #e0e0e0;
         }
         
         .header {
-            background: linear-gradient(to right, #0051ba, #00a2ff);
-            padding: 25px 30px;
+            padding: 24px;
             text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: #ffffff;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        
-        .logo-icon {
-            font-size: 2.5rem;
-            color: white;
-        }
-        
-        .logo-text {
-            font-size: 2.8rem;
+            font-size: 24px;
             font-weight: 900;
-            letter-spacing: 1.5px;
-            color: white;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            color: #000000;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
         
         .title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-top: 5px;
-            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 4px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 400;
         }
         
         .content {
-            padding: 30px;
+            padding: 24px;
         }
         
-        .verification-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .verification-header {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #f0f0f0;
+        .verification-area {
             text-align: center;
+            margin-bottom: 24px;
         }
         
-        .verification-subheader {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: #aaa;
-            text-align: center;
-            max-width: 600px;
-        }
-        
-        /* Face Scan Area */
-        .face-scan-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 30px;
+        .face-guide-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
             position: relative;
         }
         
         .face-guide {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background-color: rgba(40, 40, 55, 0.7);
-            border: 3px dashed #444;
-            overflow: hidden;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            box-shadow: 
+                inset 0 0 0 1px #e0e0e0,
+                0 4px 12px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .face-guide-inner {
-            width: 220px;
-            height: 220px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            border: 2px solid #555;
+            border: 2px solid #e0e0e0;
             position: relative;
         }
         
         .face-guide-line {
             position: absolute;
-            background-color: rgba(0, 162, 255, 0.5);
+            background-color: rgba(0, 0, 0, 0.08);
         }
         
         .face-guide-line.horizontal {
             width: 100%;
-            height: 2px;
+            height: 1px;
             top: 50%;
             left: 0;
-            transform: translateY(-1px);
         }
         
         .face-guide-line.vertical {
-            width: 2px;
+            width: 1px;
             height: 100%;
             left: 50%;
             top: 0;
-            transform: translateX(-1px);
         }
         
-        .face-preview {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            display: none;
+        .instruction {
+            font-size: 16px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 8px;
         }
         
-        .face-scan-status {
-            text-align: center;
-            margin-top: 25px;
-            min-height: 60px;
+        .instruction-detail {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
         }
         
-        .scan-instruction {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #00a2ff;
-            margin-bottom: 10px;
-            transition: all 0.5s;
-        }
-        
-        .scan-progress {
-            font-size: 1rem;
-            color: #aaa;
-        }
-        
-        /* Camera Feed */
+        /* Camera View */
         .camera-container {
             width: 100%;
-            max-width: 500px;
+            height: 300px;
             margin: 0 auto 20px;
             background-color: #000;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            aspect-ratio: 4/3;
             position: relative;
             display: none;
         }
@@ -199,136 +159,69 @@
             pointer-events: none;
         }
         
-        .face-overlay {
+        .face-overlay-circle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 180px;
-            height: 220px;
+            height: 180px;
             border-radius: 50%;
-            border: 3px solid rgba(0, 162, 255, 0.7);
-            box-shadow: 0 0 20px rgba(0, 162, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
         }
         
-        /* Results Container */
-        .results-container {
-            display: none;
+        .camera-instruction {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .age-result {
-            background: linear-gradient(to right, #0051ba, #00a2ff);
-            border-radius: 12px;
-            padding: 25px;
             text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .age-label {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 10px;
-        }
-        
-        .age-value {
-            font-size: 3.5rem;
-            font-weight: 900;
             color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .age-plus {
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-        }
-        
-        .features-container {
-            background-color: rgba(40, 40, 55, 0.7);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .features-title {
-            font-size: 1.3rem;
-            color: #f0f0f0;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .features-list {
-            list-style-type: none;
-            margin-bottom: 20px;
-        }
-        
-        .features-list li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .feature-icon {
-            color: #4CAF50;
-            margin-right: 12px;
-            font-size: 1.2rem;
-            margin-top: 2px;
-        }
-        
-        .trusted-connections {
-            background-color: rgba(30, 30, 45, 0.9);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            border-left: 4px solid #FF9800;
-        }
-        
-        .trusted-title {
-            color: #FF9800;
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            font-size: 16px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            z-index: 10;
         }
         
         /* Buttons */
         .btn {
-            padding: 14px 28px;
+            width: 100%;
+            padding: 14px 24px;
             border: none;
             border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin: 10px auto;
-            min-width: 200px;
+            gap: 8px;
+            margin-top: 8px;
         }
         
         .btn-primary {
-            background: linear-gradient(to right, #0051ba, #00a2ff);
+            background-color: #00a2ff;
             color: white;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(to right, #0041a0, #0090e0);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 82, 186, 0.3);
+            background-color: #0088d6;
+        }
+        
+        .btn-primary:disabled {
+            background-color: #b3e0ff;
+            cursor: not-allowed;
         }
         
         .btn-secondary {
-            background-color: #444;
-            color: white;
+            background-color: #f0f0f0;
+            color: #212121;
         }
         
         .btn-secondary:hover {
-            background-color: #555;
-            transform: translateY(-2px);
+            background-color: #e0e0e0;
         }
         
         .btn-success {
@@ -338,26 +231,23 @@
         
         .btn-success:hover {
             background-color: #45a049;
-            transform: translateY(-2px);
         }
         
-        /* Loading & Progress */
+        /* Loading State */
         .loading-container {
             display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 30px 0;
+            text-align: center;
+            margin: 32px 0;
         }
         
         .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(0, 162, 255, 0.3);
-            border-top: 5px solid #00a2ff;
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(0, 162, 255, 0.2);
+            border-top: 3px solid #00a2ff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            margin: 0 auto 16px;
         }
         
         @keyframes spin {
@@ -365,256 +255,330 @@
             100% { transform: rotate(360deg); }
         }
         
-        .progress-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
+        .loading-text {
+            font-size: 14px;
+            color: #666666;
         }
         
-        .progress-bar {
-            height: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #0051ba, #00a2ff);
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 4px;
-        }
-        
-        .progress-text {
+        /* Results */
+        .results-container {
+            display: none;
             text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
+        }
+        
+        .age-result {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .age-label {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+        
+        .age-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #212121;
+            line-height: 1;
+        }
+        
+        .age-plus {
+            font-size: 24px;
+            font-weight: 600;
+            color: #212121;
+        }
+        
+        .features-list {
+            text-align: left;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .features-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 12px;
+        }
+        
+        .features-list ul {
+            list-style-type: none;
+            margin-bottom: 16px;
+        }
+        
+        .features-list li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #212121;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .features-list li:before {
+            content: "•";
+            color: #00a2ff;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            top: -1px;
+        }
+        
+        .trusted-connections {
+            background-color: #fff8e1;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            border-left: 4px solid #ffb300;
+        }
+        
+        .trusted-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 8px;
         }
         
         /* Error State */
         .error-container {
             display: none;
-            background-color: rgba(211, 47, 47, 0.1);
-            border: 1px solid #d32f2f;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px auto;
             text-align: center;
-            max-width: 500px;
+            margin: 32px 0;
         }
         
         .error-icon {
-            font-size: 3rem;
-            color: #d32f2f;
-            margin-bottom: 15px;
+            font-size: 48px;
+            color: #ff5252;
+            margin-bottom: 16px;
         }
         
         .error-title {
-            font-size: 1.5rem;
-            color: #f0f0f0;
-            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 8px;
         }
         
         .error-message {
-            color: #ff9999;
-            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
         }
         
-        /* Footer */
         .footer {
-            margin-top: 30px;
+            padding: 16px 24px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #fafafa;
             text-align: center;
-            color: #888;
-            font-size: 0.9rem;
-            padding: 20px;
-            border-top: 1px solid #333;
-            width: 100%;
         }
         
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-            }
-            
-            .header {
-                padding: 20px 15px;
-            }
-            
-            .logo-text {
-                font-size: 2.2rem;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            .face-guide {
-                width: 250px;
-                height: 250px;
-            }
-            
-            .face-guide-inner {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .age-value {
-                font-size: 2.8rem;
-            }
+        .footer-text {
+            font-size: 12px;
+            color: #666666;
+            line-height: 1.4;
+        }
+        
+        .progress-container {
+            width: 100%;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #00a2ff;
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: #666666;
+            text-align: center;
+        }
+        
+        /* Face animation during scan */
+        .face-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: rgba(0, 162, 255, 0.1);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .face-animation i {
+            font-size: 48px;
+            color: #00a2ff;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(0.9); }
+        }
+        
+        /* Arrow indicators */
+        .arrow-left, .arrow-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: rgba(0, 162, 255, 0.8);
+            display: none;
+        }
+        
+        .arrow-left {
+            left: 10px;
+        }
+        
+        .arrow-right {
+            right: 10px;
+        }
+        
+        .arrow-left i, .arrow-right i {
+            animation: slide 1s infinite alternate;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(5px); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">
-                <i class="fas fa-gamepad logo-icon"></i>
-                <div class="logo-text">RØBLOX</div>
-            </div>
-            <div class="title">Age Verification</div>
+            <div class="logo">RØBLOX</div>
+            <div class="title">Age check</div>
+            <div class="subtitle">Face verification</div>
         </div>
         
         <div class="content">
             <!-- Initial View -->
-            <div id="initial-view" class="verification-container">
-                <h2 class="verification-header">Age Check</h2>
-                <p class="verification-subheader">We'll scan your face to estimate your age. This helps us provide age-appropriate experiences and safety features.</p>
-                
-                <div class="face-scan-container">
+            <div id="initial-view" class="verification-area">
+                <div class="face-guide-container">
                     <div class="face-guide">
                         <div class="face-guide-inner">
                             <div class="face-guide-line horizontal"></div>
                             <div class="face-guide-line vertical"></div>
                         </div>
-                        <img id="face-preview" class="face-preview" src="" alt="Face Preview">
-                    </div>
-                    
-                    <div class="face-scan-status">
-                        <div id="scan-instruction" class="scan-instruction">Position your face in the circle</div>
-                        <div id="scan-progress" class="scan-progress">Make sure your face is well-lit and clearly visible</div>
+                        <div class="face-animation" id="face-animation">
+                            <i class="fas fa-user"></i>
+                        </div>
                     </div>
                 </div>
                 
-                <button id="start-scan-btn" class="btn btn-primary">
-                    <i class="fas fa-camera"></i>
-                    Start Face Scan
+                <div class="instruction" id="instruction-text">Position your face in the circle</div>
+                <div class="instruction-detail" id="instruction-detail">Make sure your face is well-lit and clearly visible</div>
+                
+                <button id="start-btn" class="btn btn-primary">
+                    Start face scan
                 </button>
             </div>
             
             <!-- Camera View -->
-            <div id="camera-view" class="verification-container" style="display: none;">
-                <h2 class="verification-header">Face Scan in Progress</h2>
-                <p class="verification-subheader">Follow the instructions below to complete the scan</p>
-                
+            <div id="camera-view" class="verification-area" style="display: none;">
                 <div class="camera-container">
                     <video id="camera-feed" autoplay></video>
                     <div class="camera-overlay">
-                        <div class="face-overlay"></div>
+                        <div class="face-overlay-circle"></div>
+                        <div class="arrow-left" id="arrow-left">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="arrow-right" id="arrow-right">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
+                    <div class="camera-instruction" id="camera-instruction-text">Look straight ahead</div>
                 </div>
                 
-                <div class="face-scan-status">
-                    <div id="camera-instruction" class="scan-instruction">Look straight ahead</div>
-                    <div id="camera-progress" class="scan-progress">Step 1 of 3: Capturing front view</div>
-                </div>
-                
-                <div class="progress-container">
+                <div class="progress-container" id="progress-container">
                     <div class="progress-bar">
-                        <div id="progress-fill" class="progress-fill"></div>
+                        <div class="progress-fill" id="progress-fill"></div>
                     </div>
-                    <div id="progress-text" class="progress-text">0% complete</div>
+                    <div class="progress-text" id="progress-text">Step 1 of 3: Looking forward</div>
                 </div>
+                
+                <button id="cancel-btn" class="btn btn-secondary">
+                    Cancel
+                </button>
             </div>
             
             <!-- Loading View -->
             <div id="loading-view" class="loading-container" style="display: none;">
                 <div class="spinner"></div>
-                <h2 class="verification-header">Analyzing Face Scan</h2>
-                <p class="verification-subheader">Please wait while we estimate your age</p>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div id="analysis-progress" class="progress-fill"></div>
-                    </div>
-                    <div id="analysis-text" class="progress-text">Processing facial features...</div>
-                </div>
+                <div class="loading-text">Analyzing face scan...</div>
             </div>
             
             <!-- Results View -->
             <div id="results-view" class="results-container" style="display: none;">
-                <h2 class="verification-header">Age Verification Complete</h2>
-                
                 <div class="age-result">
                     <div class="age-label">We estimated your age as</div>
                     <div class="age-value">13<span class="age-plus">+</span></div>
                 </div>
                 
-                <div class="features-container">
-                    <h3 class="features-title">You can now use:</h3>
-                    <ul class="features-list">
-                        <li>
-                            <i class="fas fa-comments feature-icon"></i>
-                            <div>Experience chat in appropriate experiences</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-users feature-icon"></i>
-                            <div>Party chat with other verified users</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-microphone feature-icon"></i>
-                            <div>Voice chat in age-appropriate experiences</div>
-                        </li>
+                <div class="features-list">
+                    <div class="features-title">You can use Experience chat, Party chat, and Voice chat. You can also use the following features with Trusted Connections:</div>
+                    <ul>
+                        <li>Party chat without filters</li>
+                        <li>Party voice</li>
                     </ul>
-                    
-                    <div class="trusted-connections">
-                        <div class="trusted-title">With Trusted Connections, you can also use:</div>
-                        <ul class="features-list">
-                            <li>
-                                <i class="fas fa-user-check feature-icon"></i>
-                                <div>Party chat without filters</div>
-                            </li>
-                            <li>
-                                <i class="fas fa-headset feature-icon"></i>
-                                <div>Party voice with trusted friends</div>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 
                 <button id="continue-btn" class="btn btn-success">
-                    <i class="fas fa-check-circle"></i>
-                    Continue to Roblox
+                    Continue
                 </button>
                 
-                <button id="rescan-btn" class="btn btn-secondary">
-                    <i class="fas fa-redo"></i>
-                    Rescan Face
+                <button id="try-again-btn" class="btn btn-secondary">
+                    Try again
                 </button>
             </div>
             
             <!-- Error View -->
             <div id="error-view" class="error-container" style="display: none;">
                 <div class="error-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
+                    <i class="fas fa-exclamation-circle"></i>
                 </div>
-                <h3 class="error-title">Scan Unsuccessful</h3>
-                <p class="error-message">We couldn't properly scan your face. This might be due to poor lighting, face not being clearly visible, or movement during scanning.</p>
+                <div class="error-title">Verification unsuccessful</div>
+                <div class="error-message">We couldn't verify your age. Please try again or use a different verification method.</div>
+                
                 <button id="retry-btn" class="btn btn-primary">
-                    <i class="fas fa-redo"></i>
-                    Try Again
+                    Try again
                 </button>
-                <button id="manual-verify-btn" class="btn btn-secondary">
-                    <i class="fas fa-id-card"></i>
-                    Verify with ID Instead
+                
+                <button id="other-method-btn" class="btn btn-secondary">
+                    Other method
                 </button>
             </div>
         </div>
-    </div>
-    
-    <div class="footer">
-        <p>© 2023 Roblox Corporation. All rights reserved. Roblox and the Roblox logo are registered trademarks of Roblox Corporation.</p>
-        <p>Face scanning technology is used for age estimation only. Your biometric data is processed securely and not stored long-term.</p>
+        
+        <div class="footer">
+            <div class="footer-text">Your face data is processed securely and deleted after verification.</div>
+        </div>
     </div>
 
     <script>
@@ -625,40 +589,35 @@
         const resultsView = document.getElementById('results-view');
         const errorView = document.getElementById('error-view');
         
-        const startScanBtn = document.getElementById('start-scan-btn');
+        const startBtn = document.getElementById('start-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
         const continueBtn = document.getElementById('continue-btn');
-        const rescanBtn = document.getElementById('rescan-btn');
+        const tryAgainBtn = document.getElementById('try-again-btn');
         const retryBtn = document.getElementById('retry-btn');
-        const manualVerifyBtn = document.getElementById('manual-verify-btn');
-        
-        const scanInstruction = document.getElementById('scan-instruction');
-        const scanProgress = document.getElementById('scan-progress');
-        const cameraInstruction = document.getElementById('camera-instruction');
-        const cameraProgress = document.getElementById('camera-progress');
+        const otherMethodBtn = document.getElementById('other-method-btn');
         
         const cameraFeed = document.getElementById('camera-feed');
-        const facePreview = document.getElementById('face-preview');
-        
+        const instructionText = document.getElementById('instruction-text');
+        const instructionDetail = document.getElementById('instruction-detail');
+        const cameraInstructionText = document.getElementById('camera-instruction-text');
+        const faceAnimation = document.getElementById('face-animation');
+        const arrowLeft = document.getElementById('arrow-left');
+        const arrowRight = document.getElementById('arrow-right');
+        const progressContainer = document.getElementById('progress-container');
         const progressFill = document.getElementById('progress-fill');
         const progressText = document.getElementById('progress-text');
-        const analysisProgress = document.getElementById('analysis-progress');
-        const analysisText = document.getElementById('analysis-text');
         
         // State variables
         let scanStep = 0;
-        const totalSteps = 3;
         let stream = null;
-        let scanSuccess = true; // For demo purposes, set to false to test error state
+        let scanInterval = null;
         
         // Start face scan
-        startScanBtn.addEventListener('click', async function() {
+        startBtn.addEventListener('click', async function() {
             // Hide initial view, show camera view
             initialView.style.display = 'none';
-            cameraView.style.display = 'flex';
-            
-            // Update instruction
-            cameraInstruction.textContent = 'Look straight ahead';
-            cameraProgress.textContent = `Step 1 of ${totalSteps}: Capturing front view`;
+            cameraView.style.display = 'block';
+            progressContainer.style.display = 'block';
             
             // Start camera
             try {
@@ -671,147 +630,138 @@
                 });
                 cameraFeed.srcObject = stream;
             } catch (error) {
-                // If camera fails, use placeholder for demo
-                console.log("Camera error, using placeholder:", error.message);
-                cameraFeed.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80";
+                // If camera fails, use a placeholder
+                console.log("Camera error:", error.message);
+                cameraFeed.style.objectFit = 'contain';
+                cameraFeed.style.backgroundColor = '#1a1a1a';
+                cameraFeed.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a1a1a'/%3E%3Ccircle cx='200' cy='150' r='80' fill='%23333'/%3E%3Ccircle cx='170' cy='120' r='15' fill='%23555'/%3E%3Ccircle cx='230' cy='120' r='15' fill='%23555'/%3E%3Cpath d='M170,200 Q200,220 230,200' stroke='%23555' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
             }
             
-            // Start the scanning sequence
-            startScanSequence();
+            // Start the scanning process
+            startScanProcess();
         });
         
-        // Scan sequence function
-        function startScanSequence() {
+        // Start the scanning process
+        function startScanProcess() {
             scanStep = 0;
             updateProgress();
             
-            // Step 1: Look straight ahead
+            // Step 1: Look forward
+            cameraInstructionText.textContent = "Look straight ahead";
+            progressText.textContent = "Step 1 of 3: Looking forward";
+            
+            // After 2 seconds, move to step 2
             setTimeout(() => {
                 scanStep = 1;
-                cameraInstruction.textContent = 'Look straight ahead';
-                cameraProgress.textContent = `Step 1 of ${totalSteps}: Capturing front view`;
                 updateProgress();
+                cameraInstructionText.textContent = "Turn your face slightly left";
+                progressText.textContent = "Step 2 of 3: Turning left";
                 
-                // Simulate capturing front view
+                // Show left arrow
+                arrowLeft.style.display = 'block';
+                
+                // After 2 seconds, move to step 3
                 setTimeout(() => {
                     scanStep = 2;
-                    cameraInstruction.textContent = 'Turn your face slightly left';
-                    cameraProgress.textContent = `Step 2 of ${totalSteps}: Capturing left profile`;
                     updateProgress();
+                    cameraInstructionText.textContent = "Turn your face slightly right";
+                    progressText.textContent = "Step 3 of 3: Turning right";
                     
-                    // Simulate capturing left profile
+                    // Hide left arrow, show right arrow
+                    arrowLeft.style.display = 'none';
+                    arrowRight.style.display = 'block';
+                    
+                    // After 2 seconds, complete scan
                     setTimeout(() => {
-                        scanStep = 3;
-                        cameraInstruction.textContent = 'Turn your face slightly right';
-                        cameraProgress.textContent = `Step 3 of ${totalSteps}: Capturing right profile`;
-                        updateProgress();
-                        
-                        // Simulate capturing right profile and complete
-                        setTimeout(() => {
-                            completeScan();
-                        }, 2000);
+                        completeScan();
                     }, 2000);
                 }, 2000);
-            }, 1000);
+            }, 2000);
         }
         
         // Update progress bar
         function updateProgress() {
-            const percent = (scanStep / totalSteps) * 100;
+            const percent = (scanStep / 2) * 100;
             progressFill.style.width = `${percent}%`;
-            progressText.textContent = `${Math.round(percent)}% complete`;
         }
         
         // Complete scan and analyze
         function completeScan() {
             // Hide camera view, show loading view
             cameraView.style.display = 'none';
-            loadingView.style.display = 'flex';
+            loadingView.style.display = 'block';
             
             // Stop camera stream
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
             }
             
-            // Start analysis progress simulation
-            let analysisPercent = 0;
-            const analysisInterval = setInterval(() => {
-                analysisPercent += 5;
-                analysisProgress.style.width = `${analysisPercent}%`;
+            // Simulate analysis for 3 seconds
+            setTimeout(() => {
+                loadingView.style.display = 'none';
                 
-                if (analysisPercent <= 25) {
-                    analysisText.textContent = "Processing facial features...";
-                } else if (analysisPercent <= 50) {
-                    analysisText.textContent = "Analyzing age markers...";
-                } else if (analysisPercent <= 75) {
-                    analysisText.textContent = "Comparing with age models...";
+                // For demo: 80% success rate
+                const isSuccessful = Math.random() > 0.2;
+                
+                if (isSuccessful) {
+                    resultsView.style.display = 'block';
                 } else {
-                    analysisText.textContent = "Finalizing age estimation...";
+                    errorView.style.display = 'block';
                 }
-                
-                if (analysisPercent >= 100) {
-                    clearInterval(analysisInterval);
-                    
-                    // For demo, randomly decide success/failure (80% success rate)
-                    scanSuccess = Math.random() > 0.2;
-                    
-                    // Show results or error after a brief delay
-                    setTimeout(() => {
-                        loadingView.style.display = 'none';
-                        
-                        if (scanSuccess) {
-                            resultsView.style.display = 'block';
-                            
-                            // For demo, sometimes show different age results
-                            const ageValue = document.querySelector('.age-value');
-                            if (Math.random() > 0.7) {
-                                ageValue.innerHTML = '18<span class="age-plus">+</span>';
-                            } else if (Math.random() > 0.5) {
-                                ageValue.innerHTML = '16<span class="age-plus">+</span>';
-                            } else {
-                                ageValue.innerHTML = '13<span class="age-plus">+</span>';
-                            }
-                        } else {
-                            errorView.style.display = 'block';
-                        }
-                    }, 500);
-                }
-            }, 150);
+            }, 3000);
         }
         
-        // Continue to Roblox after successful verification
+        // Cancel scan
+        cancelBtn.addEventListener('click', function() {
+            // Stop camera stream
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            
+            // Reset to initial view
+            cameraView.style.display = 'none';
+            initialView.style.display = 'block';
+            arrowLeft.style.display = 'none';
+            arrowRight.style.display = 'none';
+            progressContainer.style.display = 'none';
+        });
+        
+        // Continue after successful verification
         continueBtn.addEventListener('click', function() {
-            alert("✅ Age verification complete! You're now being redirected to Roblox.");
-            // In a real implementation, this would redirect to Roblox
-            // window.location.href = "https://www.roblox.com";
+            alert("Age verification complete! You can now use age-appropriate features.");
+            // In real implementation: redirect or close modal
         });
         
-        // Rescan face
-        rescanBtn.addEventListener('click', function() {
+        // Try again from results
+        tryAgainBtn.addEventListener('click', function() {
             resultsView.style.display = 'none';
-            initialView.style.display = 'flex';
-            scanInstruction.textContent = 'Position your face in the circle';
-            scanProgress.textContent = 'Make sure your face is well-lit and clearly visible';
+            initialView.style.display = 'block';
         });
         
-        // Retry after error
+        // Retry from error
         retryBtn.addEventListener('click', function() {
             errorView.style.display = 'none';
-            initialView.style.display = 'flex';
+            initialView.style.display = 'block';
         });
         
-        // Manual verification option
-        manualVerifyBtn.addEventListener('click', function() {
-            alert("Redirecting to ID verification process...");
-            // In a real implementation, this would redirect to ID verification
-            // window.location.href = "https://www.roblox.com/verify/id";
+        // Other method from error
+        otherMethodBtn.addEventListener('click', function() {
+            alert("Redirecting to other verification methods...");
         });
         
-        // Initialize with a simulated face preview for the initial view
+        // Initialize with face animation in initial view
         window.addEventListener('load', function() {
-            // Set a placeholder face for the initial view
-            facePreview.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Ccircle cx='150' cy='150' r='140' fill='%23333'/%3E%3Ccircle cx='110' cy='120' r='20' fill='%23555'/%3E%3Ccircle cx='190' cy='120' r='20' fill='%23555'/%3E%3Cpath d='M110,200 Q150,230 190,200' stroke='%23555' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
-            facePreview.style.display = 'block';
+            // Show subtle face animation
+            faceAnimation.style.display = 'flex';
+            
+            // Add hover effect to start button
+            startBtn.addEventListener('mouseenter', function() {
+                faceAnimation.style.transform = 'translate(-50%, -50%) scale(1.1)';
+            });
+            
+            startBtn.addEventListener('mouseleave', function() {
+                faceAnimation.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
         });
     </script>
 </body>
